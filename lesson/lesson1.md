@@ -1,14 +1,16 @@
+# Первое занятие
+
 ## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) [Вебинар ПРЕЗЕНТАЦИЯ обучения](https://drive.google.com/file/d/0B_4NpoQW1xfpNzdqT2hOcUJ6TGs)
-- [Так будет выглядеть мое резюме в разрабатываемом на этом проекте приложении](https://javawebinar.github.io/)
+#### [Итоговый пример приложения, разрабатываемого в рамках данного курса (на примере резюме Григория Кислина)](https://javawebinar.github.io/)
 
-## Для участия необходимо:
--  Установить <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a> (выбрать Accept License Agreement)
--  Установить систему управления версиями <a href="http://git-scm.com/downloads">Git</a> (опции по умолчанию)
--  Создать аккаунт на <a href="https://github.com/">GitHub</a>
--  Установить <a href="http://www.jetbrains.com/idea/download/index.html">IntelliJ IDEA</a>
-> Выбирать Ultimate, 30 days trial (нам понадобится SQL, Tomcat, JSP). Ключ на 6 месяцев выдается на первом занятии.
+### Подготовка рабочего окружения
+- Установите [JDK8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (выбрать Accept License Agreement)
+- Установите систему управления версиями [Git](http://git-scm.com/downloads) (опции по умолчанию)
+- Создайте аккаунт на [GitHub](https://github.com/)
+- Для удобной навигации по файлам на GitHub установите расширение для браузера - [Octotree](https://habrahabr.ru/post/223527/)
+- Установите [IntelliJ IDEA Ultimate](http://www.jetbrains.com/idea/download/index.html)
+> Данная среда разработки является платным продуктом, рассчитанным на 30 дней пробного бесплатного использования. Для выполнения заданий в этой IDE каждый участник курса получит ключ на 6 месяцев
 
-# Первое открытое занятие
 ## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 1. [Разработка ПО](https://drive.google.com/open?id=0B_4NpoQW1xfpVjZUTEpvVUN1TTA)
 - [Книга: Мифический человеко-месяц](https://ru.wikipedia.org/wiki/Мифический_человеко-месяц)
 - [Размеры проектов в количестве строк кода](https://medium.freecodecamp.com/the-biggest-codebases-in-history-a128bb3eea73)
@@ -42,10 +44,10 @@
    - [Понимаем основы Java garbage collection](https://ggenikus.github.io/blog/2014/05/04/gc)
 
 ## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 4. [Системы управления версиями. Git](https://drive.google.com/file/d/0B9Ye2auQ_NsFSUNrdVc0bDZuX2s)
-### Настройка проекта
-- Создать на GitHub репозиторий `basejava`
-- git занести в переменная окружения PATH, перезапустить cmd
-- Создайте локальную копию проекта: `git clone https://github.com/JavaOps/basejava.git`
+### *Настройка проекта*
+- Создайте на GitHub репозиторий с названием `basejava`
+- [Занесите](https://www.java.com/ru/download/help/path.xml) git в переменную окружения PATH и перезапустите cmd
+- Создайте локальную копию ЭТОГО проекта: `git clone https://github.com/JavaOps/basejava.git`
 - Перейти в каталог проекта: `cd basejava`
 - Настроить git в локальном проекте на свой проект в GitHub:
   - `git remote -v`
