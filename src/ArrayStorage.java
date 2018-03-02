@@ -23,7 +23,7 @@ public class ArrayStorage {
 
     Resume get(String uuid) {
         for (Resume r : storage) {
-            if (Objects.nonNull(r) && r.toString().equals(uuid)) {
+            if (Objects.nonNull(r) && r.toString().intern() == uuid.intern()) {
                 return r;
             }
         }
@@ -32,7 +32,7 @@ public class ArrayStorage {
 
     void delete(String uuid) {
         for (int i = 0; i < storage.length; i++) {
-            if (Objects.nonNull(storage[i]) && storage[i].toString().equals(uuid)) {
+            if (Objects.nonNull(storage[i]) && storage[i].toString().intern() == uuid.intern()) {
                 storage[i] = null;
             }
         }
