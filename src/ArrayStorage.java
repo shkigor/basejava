@@ -34,6 +34,7 @@ public class ArrayStorage {
         for (int i = 0; i < storage.length; i++) {
             if (Objects.nonNull(storage[i]) && storage[i].toString().intern() == uuid.intern()) {
                 storage[i] = null;
+                break;
             }
         }
     }
