@@ -14,18 +14,20 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        int sizeResume = size();
-        if (sizeResume == storage.length) {
+        if (Objects.isNull(r)) {
+            return;
+        }
+        if (storageSize == storage.length) {
             System.out.println("Can't save! Not enough space");
             return;
         }
-        storage[sizeResume] = r;
+        storage[storageSize] = r;
         storageSize++;
     }
 
     Resume get(String uuid) {
         for (int i = 0; i < storageSize; i++) {
-            if (storage[i].toString().intern() == uuid.intern()) {
+            if (storage[i].toString().equals(uuid)) {
                 return storage[i];
             }
         }
@@ -33,22 +35,11 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int removedItemIndex = -1;
         for (int i = 0; i < storageSize; i++) {
-            if (storage[i].toString().intern() == uuid.intern()) {
-                storage[i] = null;
+            if (storage[i].toString().equals(uuid)) {
+                storage[i] = storage[storageSize - 1];
                 storageSize--;
-                removedItemIndex = i;
                 break;
-            }
-        }
-        if (removedItemIndex != -1) {
-            // Move items
-            for (int i = removedItemIndex; i < storageSize + 1; i++) {
-                if (i + 1 < storage.length && Objects.nonNull(storage[i + 1])) {
-                    storage[i] = storage[i + 1];
-                    storage[i + 1] = null;
-                }
             }
         }
     }
@@ -61,15 +52,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        int count = 0;
-        for (Resume r : storage) {
-            if (Objects.nonNull(r)) {
-                count++;
-            } else {
-                break;
-            }
-        }
-        storageSize = count;
-        return count;
+        return storageSize;
     }
 }
