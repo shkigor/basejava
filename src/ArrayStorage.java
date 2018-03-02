@@ -13,16 +13,17 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        for(int i = 0; i < storage.length; i++)
-            if(Objects.isNull(storage[i])) {
+        for (int i = 0; i < storage.length; i++) {
+            if (Objects.isNull(storage[i])) {
                 storage[i] = r;
                 break;
             }
+        }
     }
 
     Resume get(String uuid) {
-        for(Resume r: storage){
-            if(Objects.nonNull(r) && r.toString().equals(uuid)) {
+        for (Resume r : storage) {
+            if (Objects.nonNull(r) && r.toString().equals(uuid)) {
                 return r;
             }
         }
