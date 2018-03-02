@@ -21,7 +21,7 @@ public class ArrayStorage {
             System.out.println("Can't save! Not enough space");
             return;
         }
-        storage[size()] = r;
+        storage[sizeResume] = r;
         storageSize++;
     }
 
