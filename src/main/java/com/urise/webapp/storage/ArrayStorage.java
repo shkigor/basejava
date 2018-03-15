@@ -1,3 +1,7 @@
+package com.urise.webapp.storage;
+
+import com.urise.webapp.model.Resume;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -5,15 +9,15 @@ import java.util.Objects;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int storageSize = 0;
+    private Resume[] storage = new Resume[10000];
+    private int storageSize = 0;
 
-    void clear() {
+    public void clear() {
         Arrays.fill(storage, 0, storageSize, null);
         storageSize = 0;
     }
 
-    void save(Resume r) {
+    public void save(Resume r) {
         if (Objects.isNull(r)) {
             return;
         }
@@ -25,18 +29,18 @@ public class ArrayStorage {
         storageSize++;
     }
 
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
         for (int i = 0; i < storageSize; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
         return null;
     }
 
-    void delete(String uuid) {
+    public void delete(String uuid) {
         for (int i = 0; i < storageSize; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[storageSize - 1];
                 storage[storageSize - 1] = null;
                 storageSize--;
@@ -48,11 +52,11 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
         return Arrays.copyOf(storage, storageSize);
     }
 
-    int size() {
+    public int size() {
         return storageSize;
     }
 }
