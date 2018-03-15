@@ -17,7 +17,14 @@ public class ArrayStorage {
         size = 0;
     }
 
+    public void update(Resume r) {
+        // TODO check if resume present
+        // TODO To get rid of duplicate of code
+        System.out.println("ERROR");
+    }
+
     public void save(Resume r) {
+        // TODO check if resume not present
         if (Objects.isNull(r)) {
             return;
         }
@@ -39,6 +46,7 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
+        // TODO check if resume present
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[size - 1];
