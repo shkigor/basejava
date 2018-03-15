@@ -10,46 +10,38 @@ import java.util.Objects;
  */
 public class ArrayStorage {
 
-    private static int RESUME_NOT_FOUND = -1;
-
+    private static final int RESUME_NOT_FOUND = -1;
     private Resume[] storage = new Resume[10000];
-    private int size = 0;
+    private int size;
 
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    public void update(Resume r) {
-        if (Objects.isNull(r)) {
-            System.out.println("ERROR. Cannot update. Resume cannot be null");
-            return;
-        }
-        // check if resume present
-        int index = obtainResumeIndexInStorage(r);
+    public void update(Resume resume) {
+        Objects.requireNonNull(resume, "ERROR. Cannot update. Resume cannot be null");
+
+        int index = obtainResumeIndexInStorage(resume);
         if (index == RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot update. The Resume is not found in Storage");
             return;
         }
-        storage[index] = r;
+        storage[index] = resume;
     }
 
-    public void save(Resume r) {
-        if (Objects.isNull(r)) {
-            System.out.println("ERROR. Cannot save. Resume cannot be null");
-            return;
-        }
+    public void save(Resume resume) {
+        Objects.requireNonNull(resume, "ERROR. Cannot save. Resume cannot be null");
         if (size == storage.length) {
             System.out.println("ERROR. Cannot save Resume! Not enough space in Storage");
             return;
         }
-        // check if resume not present
-        int index = obtainResumeIndexInStorage(r);
+        int index = obtainResumeIndexInStorage(resume);
         if (index != RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot save. The Resume is present in Storage");
             return;
         }
-        storage[size] = r;
+        storage[size] = resume;
         size++;
     }
 
@@ -63,19 +55,15 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (Objects.isNull(uuid)) {
-            System.out.println("ERROR. Cannot delete. UUID cannot be null");
-            return;
-        }
-        // check if resume present
+        Objects.requireNonNull(uuid, "ERROR. Cannot delete. UUID cannot be null");
         int index = obtainResumeIndexInStorage(get(uuid));
         if (index == RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot delete. The Resume is not found in Storage");
             return;
         }
-        storage[index] = storage[size - 1];
-        storage[size - 1] = null;
         size--;
+        storage[index] = storage[size];
+        storage[size] = null;
     }
 
     /**
@@ -89,10 +77,10 @@ public class ArrayStorage {
         return size;
     }
 
-    private int obtainResumeIndexInStorage(Resume r) {
-        for (int index = 0; index < size; index++) {
-            if (storage[index].equals(r)) {
-                return index;
+    private int obtainResumeIndexInStorage(Resume resume) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].equals(resume)) {
+                return i;
             }
         }
         return RESUME_NOT_FOUND;
