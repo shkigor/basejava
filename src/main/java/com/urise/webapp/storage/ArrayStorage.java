@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public class ArrayStorage {
 
-    private static final int RESUME_NOT_FOUND = -1;
+    private final int RESUME_NOT_FOUND = -1;
     private Resume[] storage = new Resume[10000];
     private int size;
 
