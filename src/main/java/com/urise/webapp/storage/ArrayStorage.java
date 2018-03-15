@@ -20,7 +20,13 @@ public class ArrayStorage {
     public void update(Resume r) {
         // TODO check if resume present
         // TODO To get rid of duplicate of code
-        System.out.println("ERROR");
+        for (int i = 0; i < size; i++) {
+            if (storage[i].equals(r)) {
+                storage[i] = r;
+                return;
+            }
+        }
+        System.out.println("ERROR. Cannot find Resume");
     }
 
     public void save(Resume r) {
