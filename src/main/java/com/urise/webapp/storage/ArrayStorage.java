@@ -22,7 +22,7 @@ public class ArrayStorage {
     public void update(Resume resume) {
         Objects.requireNonNull(resume, "ERROR. Cannot update. Resume cannot be null");
 
-        int index = obtainResumeIndexInStorage(resume);
+        int index = getIndex(resume.getUuid());
         if (index == RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot update. The Resume is not found in Storage");
             return;
@@ -36,7 +36,7 @@ public class ArrayStorage {
             System.out.println("ERROR. Cannot save Resume! Not enough space in Storage");
             return;
         }
-        int index = obtainResumeIndexInStorage(resume);
+        int index = getIndex(resume.getUuid());
         if (index != RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot save. The Resume is present in Storage");
             return;
@@ -46,17 +46,18 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        Objects.requireNonNull(uuid, "ERROR. Cannot get. UUID cannot be null");
+        int index = getIndex(uuid);
+        if (index == RESUME_NOT_FOUND) {
+            System.out.println("ERROR. Cannot get. The Resume is not found in Storage");
+            return null;
         }
-        return null;
+        return storage[index];
     }
 
     public void delete(String uuid) {
         Objects.requireNonNull(uuid, "ERROR. Cannot delete. UUID cannot be null");
-        int index = obtainResumeIndexInStorage(get(uuid));
+        int index = getIndex(uuid);
         if (index == RESUME_NOT_FOUND) {
             System.out.println("ERROR. Cannot delete. The Resume is not found in Storage");
             return;
@@ -77,9 +78,9 @@ public class ArrayStorage {
         return size;
     }
 
-    private int obtainResumeIndexInStorage(Resume resume) {
+    private int getIndex(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].equals(resume)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return i;
             }
         }
