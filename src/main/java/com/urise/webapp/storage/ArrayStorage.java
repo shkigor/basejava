@@ -22,24 +22,24 @@ public class ArrayStorage {
     }
 
     public void update(Resume resume) {
-        Objects.requireNonNull(resume, "ERROR. Cannot update. Resume cannot be null");
+        Objects.requireNonNull(resume, "ERROR update. Resume cannot be null");
 
         if (getIndex(resume.getUuid()).isPresent()) {
             storage[index] = resume;
         } else {
-            System.out.println("ERROR. Cannot update. The Resume(" + resume.getUuid() + ") is not found in Storage");
+            System.out.println("Resume(" + resume.getUuid() + ") not exist");
         }
     }
 
     public void save(Resume resume) {
-        Objects.requireNonNull(resume, "ERROR. Cannot save. Resume cannot be null");
+        Objects.requireNonNull(resume, "ERROR save. Resume cannot be null");
         if (size == storage.length) {
-            System.out.println("ERROR. Cannot save Resume! Not enough space in Storage");
+            System.out.println("Storage overflow");
             return;
         }
 
         if (getIndex(resume.getUuid()).isPresent()) {
-            System.out.println("ERROR. Cannot save. The Resume(" + resume.getUuid() + ") is present in Storage");
+            System.out.println("Resume(" + resume.getUuid() + ") already exist");
         } else {
             storage[size] = resume;
             size++;
@@ -47,25 +47,25 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        Objects.requireNonNull(uuid, "ERROR. Cannot get. UUID cannot be null");
+        Objects.requireNonNull(uuid, "ERROR get. uuid cannot be null");
 
         if (getIndex(uuid).isPresent()) {
             return storage[index];
         } else {
-            System.out.println("ERROR. Cannot get. The Resume(" + uuid + ") is not found in Storage");
+            System.out.println("Resume(" + uuid + ") not exist");
             return null;
         }
     }
 
     public void delete(String uuid) {
-        Objects.requireNonNull(uuid, "ERROR. Cannot delete. UUID cannot be null");
+        Objects.requireNonNull(uuid, "ERROR delete. uuid cannot be null");
 
         if (getIndex(uuid).isPresent()) {
             size--;
             storage[index] = storage[size];
             storage[size] = null;
         } else {
-            System.out.println("ERROR. Cannot delete. The Resume(" + uuid + ") is not found in Storage");
+            System.out.println("Resume(" + uuid + ") not exist");
         }
     }
 
@@ -84,12 +84,10 @@ public class ArrayStorage {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 index = i;
-                //Optional объект с ненулевым значением
                 return Optional.of(i);
             }
         }
         index = NOT_FOUND;
-        //Пустой Optional объект
         return Optional.empty();
     }
 }
