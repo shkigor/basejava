@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
 
     private static final int STORAGE_LIMIT = 10000;
     private final int NOT_FOUND = -1;
