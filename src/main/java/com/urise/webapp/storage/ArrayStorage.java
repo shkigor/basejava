@@ -10,8 +10,9 @@ import java.util.Objects;
  */
 public class ArrayStorage {
 
+    private static final int STORAGE_LIMIT = 10000;
     private final int NOT_FOUND = -1;
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size;
 
     public void clear() {
@@ -33,7 +34,7 @@ public class ArrayStorage {
         Objects.requireNonNull(resume, "ERROR save. Resume cannot be null");
         if (getIndex(resume.getUuid()) != NOT_FOUND) {
             System.out.println("Resume " + resume.getUuid() + " already exist");
-        } else if (size >= storage.length) {
+        } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
             storage[size] = resume;
@@ -68,9 +69,7 @@ public class ArrayStorage {
      */
 
     public Resume[] getAll() {
-        Resume[] result = new Resume[size];
-        System.arraycopy(storage, 0, result, 0, size);
-        return result;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
