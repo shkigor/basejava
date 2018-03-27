@@ -7,30 +7,29 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void clear() {
-
+    protected void add(int index, Resume resume) {
+        int position = Math.abs(index) - 1;
+        System.arraycopy(storage, position, storage, position + 1, size - position);
+        storage[position] = resume;
+        size++;
     }
 
     @Override
-    public void update(Resume r) {
-
+    protected void remove(int index) {
+        int numMoved = size - index - 1;
+        if (numMoved > 0)
+            System.arraycopy(storage, index+1, storage, index,
+                    numMoved);
+        storage[--size] = null;
     }
 
-    @Override
-    public void save(Resume r) {
-
-    }
-
-    @Override
-    public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
-    }
-
+    /**
+     * If the binary search method returns a negative value that is equivalent to (- <insertion point> - 1),
+     * where insertion point is defined as the index at which the search key would be inserted into the array
+     *
+     * @param uuid
+     * @return position of searched element
+     */
     @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
