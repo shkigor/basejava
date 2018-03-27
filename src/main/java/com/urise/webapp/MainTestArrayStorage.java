@@ -4,6 +4,8 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.ArrayStorage;
 import com.urise.webapp.storage.Storage;
 
+import java.util.Arrays;
+
 /**
  * Test for com.urise.webapp.storage.ArrayStorage
  */
@@ -34,6 +36,8 @@ public class MainTestArrayStorage {
         Resume r4 = new Resume();
         r4.setUuid("uuid4");
         ARRAY_STORAGE.update(r4);
+
+        System.out.println("Index of r2: " + Arrays.binarySearch(ARRAY_STORAGE.getAll(), 0, ARRAY_STORAGE.size(), r2));
 
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
