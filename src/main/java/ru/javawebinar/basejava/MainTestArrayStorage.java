@@ -11,18 +11,14 @@ import java.util.Arrays;
  * Test for ru.javawebinar.basejava.storage.ArrayStorage
  */
 public class MainTestArrayStorage {
-//    private static final Storage ARRAY_STORAGE = new ArrayStorage();
+    //    private static final Storage ARRAY_STORAGE = new ArrayStorage();
     private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume();
-        r1.setUuid("uuid1");
-        final Resume r2 = new Resume();
-        r2.setUuid("uuid2");
-        final Resume r3 = new Resume();
-        r3.setUuid("uuid3");
-        final Resume r4 = new Resume();
-        r4.setUuid("uuid4");
+        final Resume r1 = new Resume("uuid1");
+        final Resume r2 = new Resume("uuid2");
+        final Resume r3 = new Resume("uuid3");
+        final Resume r4 = new Resume("uuid4");
 
         ARRAY_STORAGE.save(r4);
         ARRAY_STORAGE.save(r3);
@@ -39,8 +35,7 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.update(r2);
 //        ARRAY_STORAGE.update(null);
-        final Resume r5 = new Resume();
-        r5.setUuid("uuid5");
+        final Resume r5 = new Resume("uuid5");
         ARRAY_STORAGE.update(r5);
 
         System.out.println("Index of r2: " + Arrays.binarySearch(ARRAY_STORAGE.getAll(), 0, ARRAY_STORAGE.size(), r2));

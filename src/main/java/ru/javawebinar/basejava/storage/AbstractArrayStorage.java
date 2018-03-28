@@ -15,6 +15,12 @@ public abstract class AbstractArrayStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
 
+    protected abstract void add(int index, Resume resume);
+
+    protected abstract int getIndex(String uuid);
+
+    protected abstract void remove(int index);
+
     public int size() {
         return size;
     }
@@ -26,6 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void update(Resume resume) {
         Objects.requireNonNull(resume, "ERROR update. Resume cannot be null");
+
         int index = getIndex(resume.getUuid());
         if (index <= NOT_FOUND) {
             System.out.println("ERROR update. Resume " + resume.getUuid() + " not exist");
@@ -36,28 +43,34 @@ public abstract class AbstractArrayStorage implements Storage {
 
     public void save(Resume resume) {
         Objects.requireNonNull(resume, "ERROR save. Resume cannot be null");
-        int position = getIndex(resume.getUuid());
-        if (position > NOT_FOUND) {
+
+        int index = getIndex(resume.getUuid());
+        if (index > NOT_FOUND) {
             System.out.println("ERROR save. Resume " + resume.getUuid() + " already exist");
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
-            add(position, resume);
+            add(index, resume);
+            size++;
         }
     }
 
     public void delete(String uuid) {
         Objects.requireNonNull(uuid, "ERROR delete. uuid cannot be null");
+
         int index = getIndex(uuid);
         if (index <= NOT_FOUND) {
             System.out.println("ERROR delete. Resume " + uuid + " not exist");
         } else {
+            size--;
             remove(index);
+            storage[size] = null;
         }
     }
 
     public Resume get(String uuid) {
         Objects.requireNonNull(uuid, "ERROR get. uuid cannot be null");
+
         int index = getIndex(uuid);
         if (index <= NOT_FOUND) {
             System.out.println("ERROR get. Resume " + uuid + " not exist");
@@ -73,8 +86,4 @@ public abstract class AbstractArrayStorage implements Storage {
     public Resume[] getAll() {
         return Arrays.copyOfRange(storage, 0, size);
     }
-
-    protected abstract void add(int index, Resume resume);
-    protected abstract int getIndex(String uuid);
-    protected abstract void remove(int index);
 }
