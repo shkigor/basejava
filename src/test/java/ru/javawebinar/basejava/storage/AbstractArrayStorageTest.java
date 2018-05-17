@@ -13,6 +13,7 @@ public abstract class AbstractArrayStorageTest {
 
     @BeforeEach
     void setUp() {
+        System.out.println("BeforeEach AbstractArrayStorageTest setUp");
         storage.clear();
         storage.save(new Resume(UUID_1));
         storage.save(new Resume(UUID_2));
@@ -21,6 +22,7 @@ public abstract class AbstractArrayStorageTest {
 
     @AfterEach
     void tearDown() {
+        System.out.println("AfterEach AbstractArrayStorageTest tearDown");
     }
 
     @Test
