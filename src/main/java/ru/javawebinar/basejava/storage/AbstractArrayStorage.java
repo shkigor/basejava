@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public abstract class AbstractArrayStorage implements Storage {
 
-    protected static final int NOT_FOUND = -1;
+    protected static final int NOT_FOUND = 0;
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
@@ -37,7 +37,7 @@ public abstract class AbstractArrayStorage implements Storage {
         Objects.requireNonNull(resume, "ERROR update. Resume cannot be null");
 
         int index = getIndex(resume.getUuid());
-        if (index <= NOT_FOUND) {
+        if (index < NOT_FOUND) {
             throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[index] = resume;
@@ -48,7 +48,7 @@ public abstract class AbstractArrayStorage implements Storage {
         Objects.requireNonNull(resume, "ERROR save. Resume cannot be null");
 
         int index = getIndex(resume.getUuid());
-        if (index > NOT_FOUND) {
+        if (index >= NOT_FOUND) {
             throw new ExistStorageException(resume.getUuid());
         } else if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
@@ -62,7 +62,7 @@ public abstract class AbstractArrayStorage implements Storage {
         Objects.requireNonNull(uuid, "ERROR delete. uuid cannot be null");
 
         int index = getIndex(uuid);
-        if (index <= NOT_FOUND) {
+        if (index < NOT_FOUND) {
             throw new NotExistStorageException(uuid);
         } else {
             size--;
@@ -75,7 +75,7 @@ public abstract class AbstractArrayStorage implements Storage {
         Objects.requireNonNull(uuid, "ERROR get. uuid cannot be null");
 
         int index = getIndex(uuid);
-        if (index <= NOT_FOUND) {
+        if (index < NOT_FOUND) {
             throw new NotExistStorageException(uuid);
         }
         return storage[index];
