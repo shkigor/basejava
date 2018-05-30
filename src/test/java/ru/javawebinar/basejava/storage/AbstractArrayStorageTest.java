@@ -5,11 +5,19 @@ import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest {
 
-    protected Storage storage;
+    private Storage storage;
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
+
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
 
     @BeforeEach
     void setUp() {
@@ -32,6 +40,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     void clear() {
+        storage.clear();
+        Assertions.assertEquals(0, storage.size());
     }
 
     @Test
