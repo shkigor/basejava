@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import org.junit.jupiter.api.*;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 public abstract class AbstractArrayStorageTest {
@@ -72,6 +73,17 @@ public abstract class AbstractArrayStorageTest {
     void saveExist() {
         final Resume resume = new Resume(UUID_3);
         Assertions.assertThrows(ExistStorageException.class, () -> storage.save(resume));
+    }
+
+    @Test
+    void saveStorageOverflow() {
+        Assertions.assertThrows(StorageException.class, () -> {
+            for (int i = 0; i < 10000; i++) {
+                Resume resume = new Resume();
+                storage.save(resume);
+            }
+        });
+
     }
 
     @Test
