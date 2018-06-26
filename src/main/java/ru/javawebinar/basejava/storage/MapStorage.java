@@ -9,21 +9,6 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void update(Resume r) {
-
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        return null;
-    }
-
-    @Override
-    public void delete(String uuid) {
-
-    }
-
-    @Override
     public Resume[] getAll() {
         return new Resume[0];
     }
@@ -39,12 +24,17 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void remove(int index) {
+    protected Resume getResumeByIndex(int index) {
+        return null;
+    }
+
+    @Override
+    protected void deleteResumeByIndex(int index) {
 
     }
 
     @Override
-    public int size() {
-        return 0;
+    protected void updateResumeByIndex(int index, Resume resume) {
+
     }
 }

@@ -1,53 +1,32 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Array based storage for Resumes
  */
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
+    protected Resume[] resumeArrayStorage = new Resume[STORAGE_LIMIT];
+
+    protected abstract void remove(int index);
+
     public void clear() {
-        Arrays.fill(storage, 0, size, null);
+        Arrays.fill(resumeArrayStorage, 0, size, null);
         size = 0;
     }
 
-    public void update(Resume resume) {
-        Objects.requireNonNull(resume, "ERROR update. Resume cannot be null");
-
-        int index = getIndex(resume.getUuid());
-        if (index < NOT_FOUND) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[index] = resume;
-        }
+    @Override
+    protected void deleteResumeByIndex(int index) {
+        remove(index);
+        resumeArrayStorage[size] = null;
     }
 
-    public void delete(String uuid) {
-        Objects.requireNonNull(uuid, "ERROR delete. uuid cannot be null");
-
-        int index = getIndex(uuid);
-        if (index < NOT_FOUND) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            size--;
-            remove(index);
-            storage[size] = null;
-        }
-    }
-
-    public Resume get(String uuid) {
-        Objects.requireNonNull(uuid, "ERROR get. uuid cannot be null");
-
-        int index = getIndex(uuid);
-        if (index < NOT_FOUND) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
+    @Override
+    protected void updateResumeByIndex(int index, Resume resume) {
+        resumeArrayStorage[index] = resume;
     }
 
     /**
@@ -55,6 +34,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
      */
 
     public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+        return Arrays.copyOfRange(resumeArrayStorage, 0, size);
+    }
+
+    @Override
+    protected Resume getResumeByIndex(int index) {
+        return resumeArrayStorage[index];
     }
 }
