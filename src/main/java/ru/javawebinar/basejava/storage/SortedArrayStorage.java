@@ -9,15 +9,15 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void add(int index, Resume resume) {
         int position = Math.abs(index) - 1;
-        System.arraycopy(storage, position, storage, position + 1, size - position);
-        storage[position] = resume;
+        System.arraycopy(resumeArrayStorage, position, resumeArrayStorage, position + 1, size - position);
+        resumeArrayStorage[position] = resume;
     }
 
     @Override
     protected void remove(int index) {
         int numMoved = size - index;
         if (numMoved > 0) {
-            System.arraycopy(storage, index + 1, storage, index, numMoved);
+            System.arraycopy(resumeArrayStorage, index + 1, resumeArrayStorage, index, numMoved);
         }
     }
 
@@ -30,6 +30,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
      */
     @Override
     protected int getIndex(String uuid) {
-        return Arrays.binarySearch(storage, 0, size, new Resume(uuid));
+        return Arrays.binarySearch(resumeArrayStorage, 0, size, new Resume(uuid));
     }
 }
