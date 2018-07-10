@@ -11,7 +11,7 @@ import ru.javawebinar.basejava.model.Resume;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
 
     protected final Storage storage;
 
@@ -32,7 +32,7 @@ public abstract class AbstractArrayStorageTest {
         RESUME_NOT_EXIST = new Resume(NOT_EXIST_UUID);
     }
 
-    public AbstractArrayStorageTest(Storage storage) {
+    public AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

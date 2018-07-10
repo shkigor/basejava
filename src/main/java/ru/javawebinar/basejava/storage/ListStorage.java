@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    List<Resume> resumeListStorage = new ArrayList<>(STORAGE_LIMIT);
+    private List<Resume> resumeListStorage = new ArrayList<>(STORAGE_LIMIT);
 
     @Override
     public void clear() {
