@@ -7,12 +7,11 @@ import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    private List<Resume> resumeListStorage = new ArrayList<>(STORAGE_LIMIT);
+    private List<Resume> resumeListStorage = new ArrayList<>();
 
     @Override
     public void clear() {
         resumeListStorage.clear();
-        size = 0;
     }
 
     @Override
@@ -22,13 +21,25 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void add(int index, Resume resume) {
+    protected void addByIndex(int index, Resume resume) {
         resumeListStorage.add(resume);
     }
 
     @Override
     protected int getIndex(String uuid) {
-        return resumeListStorage.indexOf(new Resume(uuid));
+        Resume[] resumes = new Resume[size()];
+        resumeListStorage.toArray(resumes);
+        for (int i = 0; i < size(); i++) {
+            if (uuid.equals(resumes[i].getUuid())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @Override
+    protected void saveResumeByIndex(int index, Resume resume) {
+        addByIndex(index, resume);
     }
 
     @Override
@@ -39,7 +50,6 @@ public class ListStorage extends AbstractStorage {
     @Override
     protected void deleteResumeByIndex(int index) {
         resumeListStorage.remove(index);
-        ((ArrayList) resumeListStorage).trimToSize();
     }
 
     @Override
@@ -47,4 +57,8 @@ public class ListStorage extends AbstractStorage {
         resumeListStorage.set(index, resume);
     }
 
+    @Override
+    public int size() {
+        return resumeListStorage.size();
+    }
 }

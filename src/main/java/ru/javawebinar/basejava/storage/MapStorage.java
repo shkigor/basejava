@@ -2,7 +2,6 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
-import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.HashMap;
@@ -16,7 +15,6 @@ public class MapStorage extends AbstractStorage {
     @Override
     public void clear() {
         resumeMap.clear();
-        size = 0;
     }
 
     @Override
@@ -37,11 +35,8 @@ public class MapStorage extends AbstractStorage {
         Resume r = resumeMap.get(resume.getUuid());
         if (Objects.nonNull(r)) {
             throw new ExistStorageException(resume.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             resumeMap.put(resume.getUuid(), resume);
-            size++;
         }
     }
 
@@ -64,7 +59,6 @@ public class MapStorage extends AbstractStorage {
         if (Objects.isNull(r)) {
             throw new NotExistStorageException(uuid);
         } else {
-            size--;
             resumeMap.remove(uuid);
         }
     }
@@ -76,8 +70,18 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void add(int index, Resume resume) {
+    public int size() {
+        return resumeMap.size();
+    }
+
+    @Override
+    protected void addByIndex(int index, Resume resume) {
         resumeMap.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected void saveResumeByIndex(int index, Resume resume) {
+
     }
 
     @Override
