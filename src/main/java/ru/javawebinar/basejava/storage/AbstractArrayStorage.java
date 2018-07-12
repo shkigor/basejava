@@ -11,11 +11,41 @@ import java.util.Arrays;
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
     static final int STORAGE_LIMIT = 10000;
-
     Resume[] resumeArrayStorage = new Resume[STORAGE_LIMIT];
     protected int size;
 
-    protected abstract void remove(int index);
+    protected abstract void deleteResume(int index);
+
+    @Override
+    public void clear() {
+        Arrays.fill(resumeArrayStorage, 0, size, null);
+        size = 0;
+    }
+
+    /**
+     * @return array, contains only Resumes in storage (without null)
+     */
+    @Override
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(resumeArrayStorage, 0, size);
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    protected void deleteResumeByIndex(int index) {
+        size--;
+        deleteResume(index);
+        resumeArrayStorage[size] = null;
+    }
+
+    @Override
+    protected Resume getResumeByIndex(int index) {
+        return resumeArrayStorage[index];
+    }
 
     @Override
     protected void saveResumeByIndex(int index, Resume resume) {
@@ -26,38 +56,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size++;
     }
 
-    public void clear() {
-        Arrays.fill(resumeArrayStorage, 0, size, null);
-        size = 0;
-    }
-
-    @Override
-    protected void deleteResumeByIndex(int index) {
-        size--;
-        remove(index);
-        resumeArrayStorage[size] = null;
-    }
-
     @Override
     protected void updateResumeByIndex(int index, Resume resume) {
         resumeArrayStorage[index] = resume;
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(resumeArrayStorage, 0, size);
-    }
-
-    @Override
-    protected Resume getResumeByIndex(int index) {
-        return resumeArrayStorage[index];
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 }
