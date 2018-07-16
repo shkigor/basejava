@@ -14,6 +14,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     Resume[] resumeArrayStorage = new Resume[STORAGE_LIMIT];
     protected int size;
 
+    protected abstract void addByIndex(int index, Resume resume);
     protected abstract void deleteResume(int index);
 
     @Override

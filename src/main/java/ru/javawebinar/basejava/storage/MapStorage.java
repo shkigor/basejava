@@ -75,11 +75,6 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void addByIndex(int index, Resume resume) {
-        resumeMap.put(resume.getUuid(), resume);
-    }
-
-    @Override
     protected void deleteResumeByIndex(int index) {
 
     }
@@ -96,7 +91,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected void saveResumeByIndex(int index, Resume resume) {
-
+        resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override

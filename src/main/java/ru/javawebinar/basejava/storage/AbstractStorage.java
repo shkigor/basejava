@@ -8,7 +8,6 @@ import java.util.Objects;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected abstract void addByIndex(int index, Resume resume);
     protected abstract void deleteResumeByIndex(int index);
     protected abstract int getIndex(String uuid);
     protected abstract Resume getResumeByIndex(int index);

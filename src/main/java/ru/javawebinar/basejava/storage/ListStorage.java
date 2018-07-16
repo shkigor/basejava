@@ -26,21 +26,14 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void addByIndex(int index, Resume resume) {
-        resumeListStorage.add(resume);
-    }
-
-    @Override
     protected void deleteResumeByIndex(int index) {
         resumeListStorage.remove(index);
     }
 
     @Override
     protected int getIndex(String uuid) {
-        Resume[] resumes = new Resume[size()];
-        resumeListStorage.toArray(resumes);
         for (int i = 0; i < size(); i++) {
-            if (uuid.equals(resumes[i].getUuid())) {
+            if (uuid.equals(resumeListStorage.get(i).getUuid())) {
                 return i;
             }
         }
@@ -54,7 +47,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void saveResumeByIndex(int index, Resume resume) {
-        addByIndex(index, resume);
+        resumeListStorage.add(resume);
     }
 
     @Override
