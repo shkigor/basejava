@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -26,12 +28,17 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResumeByIndex(int index) {
+    protected void deleteResumeByIndex(Object indexObj) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException("TODO");
+//            throw new NotExistStorageException(uuid);
+        }
         resumeListStorage.remove(index);
     }
 
     @Override
-    protected int getIndex(String uuid) {
+    protected Object getIndex(String uuid) {
         for (int i = 0; i < size(); i++) {
             if (uuid.equals(resumeListStorage.get(i).getUuid())) {
                 return i;
@@ -41,17 +48,30 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResumeByIndex(int index) {
+    protected Resume getResumeByIndex(Object indexObj) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException("TODO");
+//            throw new NotExistStorageException(uuid);
+        }
         return resumeListStorage.get(index);
     }
 
     @Override
-    protected void saveResumeByIndex(int index, Resume resume) {
+    protected void saveResumeByIndex(Object indexObj, Resume resume) {
+        int index = (int) indexObj;
+        if (index > -1) {
+            throw new ExistStorageException(resume.getUuid());
+        }
         resumeListStorage.add(resume);
     }
 
     @Override
-    protected void updateResumeByIndex(int index, Resume resume) {
+    protected void updateResumeByIndex(Object indexObj, Resume resume) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException(resume.getUuid());
+        }
         resumeListStorage.set(index, resume);
     }
 }

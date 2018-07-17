@@ -1,5 +1,7 @@
 package ru.javawebinar.basejava.storage;
 
+import ru.javawebinar.basejava.exception.ExistStorageException;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -37,28 +39,45 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResumeByIndex(int index) {
+    protected void deleteResumeByIndex(Object indexObj) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException("TODO");
+//            throw new NotExistStorageException(uuid);
+        }
         size--;
         deleteResume(index);
         resumeArrayStorage[size] = null;
     }
 
     @Override
-    protected Resume getResumeByIndex(int index) {
+    protected Resume getResumeByIndex(Object indexObj) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException("TODO");
+//            throw new NotExistStorageException(uuid);
+        }
         return resumeArrayStorage[index];
     }
 
     @Override
-    protected void saveResumeByIndex(int index, Resume resume) {
+    protected void saveResumeByIndex(Object indexObj, Resume resume) {
+        int index = (int) indexObj;
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
+        } else if (index > -1) {
+            throw new ExistStorageException(resume.getUuid());
         }
         addByIndex(index, resume);
         size++;
     }
 
     @Override
-    protected void updateResumeByIndex(int index, Resume resume) {
+    protected void updateResumeByIndex(Object indexObj, Resume resume) {
+        int index = (int) indexObj;
+        if (index < 0) {
+            throw new NotExistStorageException(resume.getUuid());
+        }
         resumeArrayStorage[index] = resume;
     }
 }
