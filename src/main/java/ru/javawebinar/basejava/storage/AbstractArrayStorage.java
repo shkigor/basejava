@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
@@ -40,44 +38,32 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void deleteResumeByIndex(Object indexObj) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException("TODO");
-//            throw new NotExistStorageException(uuid);
-        }
         size--;
-        deleteResume(index);
+        deleteResume((int) indexObj);
         resumeArrayStorage[size] = null;
     }
 
     @Override
     protected Resume getResumeByIndex(Object indexObj) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException("TODO");
-//            throw new NotExistStorageException(uuid);
-        }
-        return resumeArrayStorage[index];
+        return resumeArrayStorage[(int) indexObj];
+    }
+
+    @Override
+    protected boolean isElementExistByIndex(Object indexObj) {
+        return (int) indexObj >= 0;
     }
 
     @Override
     protected void saveResumeByIndex(Object indexObj, Resume resume) {
-        int index = (int) indexObj;
         if (size >= STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
-        } else if (index > -1) {
-            throw new ExistStorageException(resume.getUuid());
         }
-        addByIndex(index, resume);
+        addByIndex((int) indexObj, resume);
         size++;
     }
 
     @Override
     protected void updateResumeByIndex(Object indexObj, Resume resume) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        }
-        resumeArrayStorage[index] = resume;
+        resumeArrayStorage[(int) indexObj] = resume;
     }
 }

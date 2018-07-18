@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.storage;
 
-import ru.javawebinar.basejava.exception.ExistStorageException;
-import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
@@ -29,12 +27,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void deleteResumeByIndex(Object indexObj) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException("TODO");
-//            throw new NotExistStorageException(uuid);
-        }
-        resumeListStorage.remove(index);
+        resumeListStorage.remove((int) indexObj);
     }
 
     @Override
@@ -49,29 +42,21 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected Resume getResumeByIndex(Object indexObj) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException("TODO");
-//            throw new NotExistStorageException(uuid);
-        }
-        return resumeListStorage.get(index);
+        return resumeListStorage.get((int) indexObj);
+    }
+
+    @Override
+    protected boolean isElementExistByIndex(Object indexObj) {
+        return (int) indexObj != -1;
     }
 
     @Override
     protected void saveResumeByIndex(Object indexObj, Resume resume) {
-        int index = (int) indexObj;
-        if (index > -1) {
-            throw new ExistStorageException(resume.getUuid());
-        }
         resumeListStorage.add(resume);
     }
 
     @Override
     protected void updateResumeByIndex(Object indexObj, Resume resume) {
-        int index = (int) indexObj;
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        }
-        resumeListStorage.set(index, resume);
+        resumeListStorage.set((int) indexObj, resume);
     }
 }
