@@ -26,7 +26,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResumeByIndex(Object indexObj) {
+    protected void deleteResume(Object indexObj) {
         resumeListStorage.remove((int) indexObj);
     }
 
@@ -41,22 +41,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResumeByIndex(Object indexObj) {
+    protected Resume getResume(Object indexObj) {
         return resumeListStorage.get((int) indexObj);
     }
 
     @Override
-    protected boolean isElementExistByIndex(Object indexObj) {
+    protected boolean isResumeExist(Object indexObj) {
         return (int) indexObj != -1;
     }
 
     @Override
-    protected void saveResumeByIndex(Object indexObj, Resume resume) {
+    protected void saveResume(Object indexObj, Resume resume) {
         resumeListStorage.add(resume);
     }
 
     @Override
-    protected void updateResumeByIndex(Object indexObj, Resume resume) {
+    protected void updateResume(Object indexObj, Resume resume) {
         resumeListStorage.set((int) indexObj, resume);
     }
 }

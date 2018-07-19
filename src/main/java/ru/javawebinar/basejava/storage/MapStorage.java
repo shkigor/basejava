@@ -26,12 +26,12 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isElementExistByIndex(Object indexObj) {
+    protected boolean isResumeExist(Object indexObj) {
         return resumeMap.containsKey(indexObj);
     }
 
     @Override
-    protected void deleteResumeByIndex(Object indexObj) {
+    protected void deleteResume(Object indexObj) {
         resumeMap.remove(indexObj);
     }
 
@@ -41,17 +41,17 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume getResumeByIndex(Object indexObj) {
+    protected Resume getResume(Object indexObj) {
         return resumeMap.get(indexObj);
     }
 
     @Override
-    protected void saveResumeByIndex(Object indexObj, Resume resume) {
+    protected void saveResume(Object indexObj, Resume resume) {
         resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void updateResumeByIndex(Object indexObj, Resume resume) {
+    protected void updateResume(Object indexObj, Resume resume) {
         resumeMap.put(resume.getUuid(), resume);
     }
 }
