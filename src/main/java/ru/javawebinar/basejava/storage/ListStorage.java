@@ -26,37 +26,37 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void deleteResume(Object indexObj) {
-        resumeListStorage.remove((int) indexObj);
+    protected void doDelete(Object searchKey) {
+        resumeListStorage.remove((int) searchKey);
     }
 
     @Override
-    protected Object getIndex(String uuid) {
+    protected Integer getSearchKey(String uuid) {
         for (int i = 0; i < size(); i++) {
             if (uuid.equals(resumeListStorage.get(i).getUuid())) {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 
     @Override
-    protected Resume getResume(Object indexObj) {
-        return resumeListStorage.get((int) indexObj);
+    protected Resume doGet(Object searchKey) {
+        return resumeListStorage.get((int) searchKey);
     }
 
     @Override
-    protected boolean isResumeExist(Object indexObj) {
-        return (int) indexObj != -1;
+    protected boolean isExist(Object searchKey) {
+        return searchKey != null;
     }
 
     @Override
-    protected void saveResume(Object indexObj, Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         resumeListStorage.add(resume);
     }
 
     @Override
-    protected void updateResume(Object indexObj, Resume resume) {
-        resumeListStorage.set((int) indexObj, resume);
+    protected void doUpdate(Object searchKey, Resume resume) {
+        resumeListStorage.set((int) searchKey, resume);
     }
 }

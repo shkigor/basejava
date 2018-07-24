@@ -26,32 +26,32 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isResumeExist(Object indexObj) {
-        return resumeMap.containsKey(indexObj);
+    protected boolean isExist(Object searchKey) {
+        return resumeMap.containsKey(searchKey);
     }
 
     @Override
-    protected void deleteResume(Object indexObj) {
-        resumeMap.remove(indexObj);
+    protected void doDelete(Object searchKey) {
+        resumeMap.remove(searchKey);
     }
 
     @Override
-    protected Object getIndex(String uuid) {
+    protected Object getSearchKey(String uuid) {
         return uuid;
     }
 
     @Override
-    protected Resume getResume(Object indexObj) {
-        return resumeMap.get(indexObj);
+    protected Resume doGet(Object searchKey) {
+        return resumeMap.get(searchKey);
     }
 
     @Override
-    protected void saveResume(Object indexObj, Resume resume) {
+    protected void doSave(Object searchKey, Resume resume) {
         resumeMap.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void updateResume(Object indexObj, Resume resume) {
+    protected void doUpdate(Object searchKey, Resume resume) {
         resumeMap.put(resume.getUuid(), resume);
     }
 }
