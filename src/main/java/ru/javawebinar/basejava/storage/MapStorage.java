@@ -35,6 +35,7 @@ public class MapStorage extends AbstractStorage {
         resumeMap.remove(searchKey);
     }
 
+    // TODO create new MapStorage with search key not uuid
     @Override
     protected Object getSearchKey(String uuid) {
         return uuid;
