@@ -12,7 +12,7 @@ public class MainTestArrayStorage {
 //        private static final Storage ARRAY_STORAGE = new ArrayStorage();
     private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 //    private static final Storage ARRAY_STORAGE = new ListStorage();
-//    private static final Storage ARRAY_STORAGE = new MapStorage();
+//    private static final Storage ARRAY_STORAGE = new MapUuidStorage();
 
     public static void main(String[] args) {
         final Resume r1 = new Resume("uuid1");
